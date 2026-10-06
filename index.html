@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐋 بازی حدس عدد</title>
+<style>
+  body { font-family: Tahoma, sans-serif; background: #0d1117; color: #fff;
+         display: flex; justify-content: center; align-items: center;
+         min-height: 100vh; margin: 0; padding: 20px; }
+  .box { background: #161b22; padding: 25px; border-radius: 16px;
+         width: 100%; max-width: 400px; text-align: center;
+         box-shadow: 0 0 30px rgba(255, 200, 0, 0.15); }
+  h1 { color: #ffcc33; font-size: 22px; }
+  .msg { margin: 20px 0; font-size: 18px; min-height: 30px; color: #ffcc33; }
+  input { width: 80%; padding: 12px; font-size: 18px; border-radius: 10px;
+          border: 2px solid #ffcc33; background: #0d1117; color: #fff;
+          text-align: center; }
+  button { margin-top: 15px; padding: 12px 30px; font-size: 18px;
+           border-radius: 10px; border: none; background: #ffcc33;
+           color: #000; font-weight: bold; width: 80%; }
+  .restart { background: #444; color: #fff; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>🐋 بازی حدس عدد</h1>
+  <div class="msg" id="msg">یه عدد بین 1 تا 100 حدس بزن!</div>
+  <input type="number" id="hads" placeholder="عدد رو بنویس">
+  <br>
+  <button onclick="check()">حدس بزن!</button>
+  <br>
+  <button class="restart" onclick="reset()">شروع دوباره</button>
+</div>
+<script>
+let adad = Math.floor(Math.random() * 100) + 1;
+let tedad = 0;
+function check() {
+  const input = document.getElementById('hads');
+  const msg = document.getElementById('msg');
+  const hads = parseInt(input.value);
+  if (!hads || hads < 1 || hads > 100) {
+    msg.textContent = 'یه عدد بین 1 تا 100 وارد کن!';
+    return;
+  }
+  tedad++;
+  if (hads < adad) msg.textContent = '⬆️ برو بالاتر!';
+  else if (hads > adad) msg.textContent = '⬇️ بیا پایین‌تر!';
+  else msg.textContent = '🎉 آفرین! توی ' + tedad + ' حدس زدی!';
+  input.value = '';
+}
+function reset() {
+  adad = Math.floor(Math.random() * 100) + 1;
+  tedad = 0;
+  document.getElementById('msg').textContent = 'بازی جدید! یه عدد حدس بزن!';
+  document.getElementById('hads').value = '';
+}
+document.getElementById('hads').addEventListener('keypress', e => {
+  if (e.key === 'Enter') check();
+});
+</script>
+</body>
+</html>
